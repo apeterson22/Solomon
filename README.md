@@ -280,6 +280,15 @@ cd DeepSeek-V3/inference
 pip install -r requirements.txt
 ```
 
+Alternatively, if you are running in a Codex environment with network
+access, use the provided helper script from the repository root to
+create a virtual environment and install all dependencies automatically:
+
+```shell
+cd DeepSeek-V3
+./setup.sh
+```
+
 Download the model weights from Hugging Face, and put them into `/path/to/DeepSeek-V3` folder.
 
 #### Model Weights Conversion
