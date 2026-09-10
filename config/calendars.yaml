@@ -1,0 +1,17 @@
+enabled: false
+lookahead_days: 14
+lookback_hours: 12
+sync_interval_minutes: 15
+cloud_advisors_may_receive_events: false
+providers:
+  google:
+    enabled: false
+    scope: https://www.googleapis.com/auth/calendar.readonly
+    credentials_file: /etc/solomonprime/secrets/google-calendar-client.json
+    token_file: /etc/solomonprime/secrets/google-calendar-token.json
+  m365:
+    enabled: false
+    tenant: organizations
+    client_id: ''
+    scopes: [Calendars.Read]
+    token_cache_file: /etc/solomonprime/secrets/m365-calendar-cache.json

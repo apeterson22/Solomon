@@ -1,0 +1,55 @@
+name: SolomonPrime runtime v1.0.0
+
+on:
+  pull_request:
+    paths:
+      - "runtime/**"
+      - ".github/workflows/runtime-v1.yml"
+  push:
+    branches: [main]
+    paths:
+      - "runtime/**"
+      - ".github/workflows/runtime-v1.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: runtime
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: runtime/pyproject.toml
+      - run: python -m pip install --upgrade pip
+      - run: python -m pip install -e . pytest
+      - run: bash -n deploy.sh upgrade-v1.0.0.sh upgrade-node-v1.0.0.sh upgrade-v0.4.0.sh upgrade-node-v0.4.0.sh scripts/*.sh
+      - run: python -m compileall -q solomonprime scripts tests
+      - run: pytest -q
+
+  tricorder:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: runtime/mobile/tricorder-prime
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+          cache: gradle
+      - run: chmod +x gradlew
+      - run: ./gradlew --no-daemon testDebugUnitTest assembleDebug
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tricorder-prime-debug
+          path: runtime/mobile/tricorder-prime/app/build/outputs/apk/debug/*.apk
+          if-no-files-found: error
+          retention-days: 7

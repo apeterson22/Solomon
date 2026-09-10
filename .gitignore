@@ -1,0 +1,33 @@
+# Local secrets and generated state
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*.jks
+*.keystore
+local.properties
+secrets/
+config.local.*
+*.db
+*.db-wal
+*.db-shm
+*.sqlite*
+*.token
+credentials*.json
+token*.json
+
+# Generated packages, caches, logs, and Android outputs
+dist/
+*.zip
+*.tar.gz
+__pycache__/
+.pytest_cache/
+.venv/
+.gradle/
+**/build/
+*.apk
+*.aab
+*.log
+bugreport*

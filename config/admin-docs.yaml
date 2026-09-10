@@ -1,0 +1,83 @@
+title: SolomonPrime Operations Guide
+sections:
+  - id: getting-started
+    title: Getting started
+    text: SolomonPrime v1.0.0 uses Open WebUI for chat, history, models, and workspaces. Admin provides fleet, governance, TED, edge devices, RF monitoring, configuration, documentation, and the Development Lab.
+    commands:
+      - "curl -sS http://127.0.0.1:8765/health | jq"
+      - "curl -sS http://127.0.0.1:3000/api/version | jq"
+  - id: edge-discovery
+    title: USB and Bluetooth discovery
+    text: Every node fingerprints USB interfaces every five seconds and samples Bluetooth advertisements every minute. New fingerprints are quarantined. RSSI is an estimate, not an exact distance measurement.
+    commands:
+      - "lsusb"
+      - "bluetoothctl list"
+      - "bluetoothctl devices"
+  - id: device-actions
+    title: Device action authorization
+    text: Approve local analysis first, then request one exact time-bounded action. Pairing and Bluetooth connection use BlueZ. USB writes, driver detachment, firmware, RF commands, location, and movement require a verified fingerprint-scoped adapter.
+    commands:
+      - "sudo journalctl -u solomonprime -n 100 --no-pager"
+  - id: rf
+    title: RF monitoring and control
+    text: rtl_433 provides bounded receive-only ISM observation when a compatible SDR is attached. Unknown signals remain untrusted and local. RF transmission is never automatic and requires a verified adapter, frequency policy, and approved action.
+    commands:
+      - "command -v rtl_433 hackrf_info SoapySDRUtil"
+      - "rfkill list"
+  - id: nodes
+    title: Node extensions
+    text: Install the node upgrade on each trusted SolomonPrime node. Edge and RF summaries travel to the controller only through signed heartbeats and appear in Admin RF and Fleet views.
+    commands:
+      - "curl -sS http://127.0.0.1:8765/v1/node/info | jq"
+  - id: models
+    title: Models and providers
+    text: Local inference remains primary. Free cloud advisors are used only for complex tasks and never receive device credentials, precise locations, or physical-control authority.
+    commands:
+      - "sudo /apps/solomonprime/app/scripts/model-lab.sh list-candidates"
+      - "sudo /apps/solomonprime/app/scripts/configure-models-and-providers.sh"
+      - "sudo /apps/solomonprime/app/scripts/model-lab.sh diagnose-ollama"
+  - id: calendars
+    title: Google and Microsoft 365 calendars
+    text: Google Calendar and M365 use separate delegated read-only OAuth clients and root-controlled token files. Events are normalized into a local ledger and are never shared with cloud advisors. Calendar writes are not implemented.
+    commands:
+      - "sudo /apps/solomonprime/.venv/bin/python /apps/solomonprime/app/scripts/configure-calendars.py connect google"
+      - "sudo ls -l /etc/solomonprime/secrets/*calendar*"
+  - id: voice
+    title: Voice and Flip5 Tricorder
+    text: The Tricorder source is integrated under mobile/tricorder-prime. Its SP tab requires trusted HTTPS, stores a revocable scope-limited token using Android Keystore-backed encryption, and reaches the governed chat/tool path without Admin authority. Production APK signing stays local. Voice approval still requires local STT/TTS, speaker verification, a signed session, fresh challenge, and visual action approval.
+    commands:
+      - "curl -sS -H 'Authorization: Bearer <local-key>' http://127.0.0.1:8765/v1/voice/status | jq"
+      - "sudo /apps/solomonprime/app/scripts/configure-mobile-gateway.sh"
+      - "sudo /apps/solomonprime/app/scripts/build-tricorder.sh"
+  - id: deployment
+    title: v1 installation, upgrade, and rebuild
+    text: Use deploy.sh for clean controllers, clean workers, and every supported pre-v1 upgrade. Upgrades create a rollback checkpoint and consistent backups of discovered SolomonPrime SQLite databases. Secrets, tokens, machine reports, databases, and signing material remain outside source control.
+    commands:
+      - "sudo /apps/solomonprime/app/deploy.sh controller upgrade"
+      - "sudo /apps/solomonprime/app/deploy.sh node upgrade"
+      - "sudo /apps/solomonprime/app/scripts/system-capability-report.sh"
+  - id: development
+    title: Governed Development Lab
+    text: SolomonPrime can read and search only allowlisted development repositories, draft and validate unified diffs, and run allowlisted tests. An exact patch digest must be approved in Admin before application to a development copy. Live promotion, Git push, package installation, and service restart stay operator-controlled.
+    commands:
+      - "sudo /apps/solomonprime/app/scripts/bootstrap-development-workspaces.sh"
+      - "curl -sS -H 'Authorization: Bearer <local-key>' http://127.0.0.1:8765/v1/development/status | jq"
+  - id: reverse-lab
+    title: Governed reverse-engineering lab
+    text: Core open-source inventory and receive tools are installed where available. Advanced SDR and packet tools are opt-in. Only owned or explicitly authorized devices may be analyzed; credential capture, deauthentication, automatic firmware writes, and automatic radio transmission remain disabled.
+    commands:
+      - "sudo /apps/solomonprime/app/scripts/install-reverse-engineering-lab.sh advanced"
+      - "sudo /apps/solomonprime/app/scripts/license-gate.py gpt-oss:20b"
+  - id: energy
+    title: TED energy and electricity
+    text: Configure the utility and tariff in Admin Configuration. Component telemetry is an estimate until a whole-system or wall meter is connected.
+    commands:
+      - "curl -sS -H 'Authorization: Bearer <local-key>' http://127.0.0.1:8765/v1/energy/status | jq"
+  - id: troubleshooting
+    title: Troubleshooting
+    text: Check service health, recent logs, Open WebUI, BlueZ, attached USB devices, and the protected broker before changing configuration.
+    commands:
+      - "systemctl is-active solomonprime bluetooth"
+      - "sudo docker ps --filter name=open-webui"
+      - "sudo systemctl status solomon-job-broker.socket --no-pager"
+      - "sudo /apps/solomonprime/app/scripts/repair-ollama.sh"

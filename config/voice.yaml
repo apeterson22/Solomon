@@ -1,0 +1,7 @@
+enabled: false
+voice_name: SolomonPrime
+stt: {engine: whisper.cpp, command: /opt/whisper.cpp/build/bin/whisper-cli, model: /apps/solomonprime/models/voice/whisper.bin, license: MIT}
+tts: {engine: piper, command: /usr/local/bin/piper, model: /apps/solomonprime/models/voice/solomonprime.onnx, license: GPL-3.0, voice_model_license: review_required}
+speaker_verification: {command: '', enrolled_template: '', threshold: 0.82, liveness_required: true}
+approval: {device_session_required: true, fresh_challenge_required: true, speaker_match_required: true, visual_confirmation_required_for_critical: true, challenge_ttl_seconds: 90}
+privacy: {raw_audio_retention: none, cloud_audio: false, precise_location_to_cloud: false}

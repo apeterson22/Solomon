@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "solomonprime"
+version = "1.0.0"
+description = "Local-first AI orchestration with governed knowledge, hybrid retrieval, provenance, contradictions, Obsidian exchange, and bounded distributed execution"
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi>=0.116",
+  "uvicorn[standard]>=0.35",
+  "httpx>=0.28",
+  "psutil>=7.0",
+  "PyYAML>=6.0",
+  "zeroconf>=0.147",
+  "blake3>=1.0",
+  "google-auth>=2.40",
+  "google-auth-oauthlib>=1.2",
+  "msal>=1.32",
+  "python-multipart>=0.0.20",
+]
+
+[project.scripts]
+solomonprime = "solomonprime.api:main"
+solomonctl = "solomonprime.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["solomonprime*"]
+
+[tool.setuptools.package-data]
+solomonprime = ["web/*"]

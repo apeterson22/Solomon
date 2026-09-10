@@ -1,0 +1,8 @@
+{
+  "python_tests_passed": 99,
+  "warnings": 6,
+  "shell_python_javascript_syntax": "passed",
+  "full_systemd_sandbox": "blocked by environment",
+  "real_host_deployment": "not run",
+  "production_ready": false
+}

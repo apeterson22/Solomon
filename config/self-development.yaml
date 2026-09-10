@@ -1,0 +1,16 @@
+enabled: true
+repositories:
+  - id: solomonprime-development
+    path: /apps/solomonprime-development/solomonprime
+    live_runtime: false
+    test_commands:
+      - /apps/solomonprime-build/.venv/bin/python -m pytest -q
+  - id: tricorder-development
+    path: /apps/solomonprime-development/tricorder-prime
+    live_runtime: false
+    test_commands:
+      - ./gradlew testDebugUnitTest
+policy:
+  automatic: [inventory, read, search, draft_patch, validate_patch, bounded_tests]
+  approval_required: [apply_to_development, promote_to_live, install, service_restart, git_push]
+  prohibited: [read_secrets, edit_live_runtime, bypass_tests, self_approve, force_push]

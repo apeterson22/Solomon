@@ -1,0 +1,92 @@
+# SolomonPrime cloud escalation providers.
+# ZERO-OVERAGE POLICY:
+# - allow_overage must remain false.
+# - billing_mode must be free or subscription-included.
+# - all hard quota fields are required; unknown quota => provider denied.
+# - quota_margin reserves headroom below the configured plan quota.
+# - credentials are read from files, never stored here.
+#
+# IMPORTANT: ChatGPT subscriptions do NOT include OpenAI API usage. Do not
+# mark an OpenAI API provider subscription-included unless you separately
+# have a genuinely zero-cost API grant with a hard local ceiling.
+
+providers:
+  - name: ollama-local-review
+    kind: ollama_local
+    enabled: false
+    priority: 20
+    billing_mode: free
+    allow_overage: false
+    endpoint: http://127.0.0.1:11434/v1
+    model: qwen3:14b
+    max_output_tokens: 2048
+    limits: {daily_requests: 1000, monthly_requests: 20000, monthly_input_tokens: 50000000, monthly_output_tokens: 20000000}
+
+  - name: ollama-cloud-free
+    kind: ollama_cloud
+    enabled: false
+    priority: 30
+    billing_mode: free
+    allow_overage: false
+    account_overage_disabled: false
+    endpoint: http://127.0.0.1:11434/v1
+    model: gpt-oss:120b-cloud
+    max_output_tokens: 2048
+    limits: {daily_requests: 10, monthly_requests: 200, monthly_input_tokens: 2000000, monthly_output_tokens: 500000}
+
+  # Gemini Developer API free tier. Put a free-tier AI Studio key in the file
+  # and fill limits with the active model/project limits shown in AI Studio.
+  - name: gemini-free
+    kind: gemini
+    enabled: false
+    priority: 10
+    billing_mode: free
+    allow_overage: false
+    model: gemini-3-flash-preview
+    endpoint: https://generativelanguage.googleapis.com/v1beta
+    api_key_file: /etc/solomonprime/secrets/gemini.key
+    max_output_tokens: 2048
+    limits:
+      daily_requests: 1        # REPLACE with actual active quota
+      monthly_requests: 1      # set your own conservative monthly ceiling
+      monthly_input_tokens: 1  # set your own conservative ceiling
+      monthly_output_tokens: 1 # set your own conservative ceiling
+
+  # GitHub Copilot CLI can use included subscription AI credits. SolomonPrime
+  # requires account-level Additional usage / overage to be disabled first.
+  # --max-ai-credits is also set per invocation, but GitHub documents that
+  # session limits are soft; account-level overage-disabled is the hard guard.
+  - name: copilot-subscription
+    kind: copilot_cli
+    enabled: false
+    priority: 20
+    billing_mode: subscription-included
+    allow_overage: false
+    account_overage_disabled: false # change only after you disable Additional usage
+    model: ""
+    max_ai_credits_per_call: 30
+    max_output_tokens: 2048
+    limits:
+      daily_requests: 1
+      monthly_requests: 1
+      monthly_input_tokens: 1
+      monthly_output_tokens: 1
+      monthly_ai_credits: 1
+
+  # Generic OpenAI-compatible endpoint for a provider/account that is truly
+  # free/included and for which you can define conservative hard local caps.
+  - name: compatible-free
+    kind: openai_compatible
+    enabled: false
+    priority: 50
+    billing_mode: free
+    allow_overage: false
+    endpoint: https://example.invalid/v1
+    model: model-name
+    api_key_file: /etc/solomonprime/secrets/compatible.key
+    max_output_tokens: 2048
+    limits:
+      daily_requests: 1
+      monthly_requests: 1
+      monthly_input_tokens: 1
+      monthly_output_tokens: 1

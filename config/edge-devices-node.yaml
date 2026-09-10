@@ -1,0 +1,12 @@
+policy:
+  local_first: true
+  free_advisors_only: true
+  cloud_may_control_devices: false
+  share_precise_location_with_cloud: false
+  first_contact: read_only
+  dynamic_discovery: true
+  new_devices_default: pending_quarantine
+  approved_discovery_scope: deeper_local_analysis_only
+  bluetooth_distance_method: rssi_estimate_not_guaranteed
+  approval_required: [pairing, firmware_write, radio_transmit, physical_actuation, location_sharing]
+devices: []

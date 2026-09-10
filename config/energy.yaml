@@ -1,0 +1,20 @@
+utility: Unconfigured
+service_area: ''
+provider_id: manual
+updater:
+  type: manual
+  rate_page: ''
+  auto_update: false
+  check_interval_hours: 24
+tariff:
+  schedule: RS
+  usage_tier: all_kwh
+  marginal_usd_per_kwh: 0
+  fixed_service_charge_usd_per_month: 0
+  effective_date: ''
+  source_current: ''
+  refresh_required: monthly
+accounting:
+  include_fixed_charge_in_task_cost: false
+  measurement_scope: readable_component_sensors
+  whole_system_meter_present: false

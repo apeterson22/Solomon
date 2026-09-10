@@ -1,0 +1,114 @@
+policy:
+  local_first: true
+  free_advisors_only: true
+  cloud_may_control_devices: false
+  share_precise_location_with_cloud: false
+  first_contact: read_only
+  dynamic_discovery: true
+  new_devices_default: pending_quarantine
+  approved_discovery_scope: deeper_local_analysis_only
+  bluetooth_distance_method: rssi_estimate_not_guaranteed
+  approval_required:
+    - pairing
+    - firmware_write
+    - radio_transmit
+    - physical_actuation
+    - location_sharing
+devices:
+  - id: makey-makey-01
+    name: Makey Makey input board
+    count: 1
+    class: usb_hid_input
+    identity_confidence: high
+    revision: unverified
+    interfaces: [usb-hid]
+    capabilities: [keyboard-events, mouse-events, contact-input, conductivity-input]
+    proposed_uses: [gate-contact station, water-or-leak contact alarm, large farm task buttons, feeding-check input]
+    state: inventory
+    safety: [not safety-critical, debounce inputs, isolate from mains, protect outdoor contacts from corrosion]
+  - id: kosmoduino-01
+    name: Thames & Kosmos CodeGamer KosmoDuino
+    count: 1
+    class: arduino_ble_controller
+    identity_confidence: medium
+    revision: unverified
+    interfaces: [usb-serial, bluetooth-low-energy-unverified]
+    capabilities: [buttons, joystick, leds, arduino-compatible-controller, kit-sensors-unverified]
+    proposed_uses: [interactive room station, portable sensor node, farm checklist controller, alert acknowledgement]
+    state: inventory
+    safety: [enumerate USB and BLE services before pairing, preserve existing firmware before writes]
+  - id: elegoo-car-01
+    name: ELEGOO Smart Robot Car
+    count: 1
+    class: supervised_mobile_robot
+    identity_confidence: high
+    revision: v3-or-v4-unverified
+    interfaces: [usb-serial, bluetooth-uart, infrared]
+    capabilities: [motor-drive, steering, ultrasonic-ranging, line-tracking, infrared-control, servo, battery-voltage]
+    proposed_uses: [supervised indoor inspection, equipment-room rounds, local sensor mule, robotics experiments]
+    state: inventory
+    safety: [wheels-up first test, physical stop required, speed limit, supervised only, no operation near livestock or children]
+  - id: mario-kart-mario-01
+    name: JAKKS Nintendo Mario Mini Antigravity RC Racer
+    count: 1
+    class: proprietary_rc_vehicle
+    identity_confidence: high
+    model: 02497RX
+    fcc_id: OTA02497RX
+    interfaces: [proprietary-2.4ghz]
+    capabilities: [remote-drive, stunt-mode-unverified]
+    proposed_uses: [radio-protocol receive-only study, supervised chassis experiment, outreach demonstration]
+    state: inventory
+    safety: [no radio transmission without approval, wheels-up first test, supervised only]
+  - id: mario-kart-wario-01
+    name: JAKKS Nintendo Wario Mini Antigravity RC Racer
+    count: 1
+    class: proprietary_rc_vehicle
+    identity_confidence: high
+    model: 02497RX
+    fcc_id: OTA02497RX
+    interfaces: [proprietary-2.4ghz]
+    capabilities: [remote-drive, stunt-mode-unverified]
+    proposed_uses: [radio-protocol receive-only study, supervised chassis experiment, outreach demonstration]
+    state: inventory
+    safety: [no radio transmission without approval, wheels-up first test, supervised only]
+  - id: raykit-tag-01
+    name: Raykit Android Find Hub tag 1
+    count: 1
+    class: cloud_managed_ble_locator
+    identity_confidence: high
+    interfaces: [bluetooth-le, google-find-hub]
+    capabilities: [owner-location, nearby-ring, network-assisted-finding]
+    proposed_uses: [keys, tool-case, farm-equipment-case, trailer-accessory inventory]
+    state: inventory
+    safety: [owner assignment required, private location data, no undocumented account automation, not a livestock safety tracker]
+  - id: raykit-tag-02
+    name: Raykit Android Find Hub tag 2
+    count: 1
+    class: cloud_managed_ble_locator
+    identity_confidence: high
+    interfaces: [bluetooth-le, google-find-hub]
+    capabilities: [owner-location, nearby-ring, network-assisted-finding]
+    proposed_uses: [keys, tool-case, farm-equipment-case, trailer-accessory inventory]
+    state: inventory
+    safety: [owner assignment required, private location data, no undocumented account automation, not a livestock safety tracker]
+  - id: raykit-tag-03
+    name: Raykit Android Find Hub tag 3
+    count: 1
+    class: cloud_managed_ble_locator
+    identity_confidence: high
+    interfaces: [bluetooth-le, google-find-hub]
+    capabilities: [owner-location, nearby-ring, network-assisted-finding]
+    proposed_uses: [keys, tool-case, farm-equipment-case, trailer-accessory inventory]
+    state: inventory
+    safety: [owner assignment required, private location data, no undocumented account automation, not a livestock safety tracker]
+  - id: raykit-tag-04
+    name: Raykit Android Find Hub tag 4
+    count: 1
+    class: cloud_managed_ble_locator
+    identity_confidence: high
+    interfaces: [bluetooth-le, google-find-hub]
+    capabilities: [owner-location, nearby-ring, network-assisted-finding]
+    proposed_uses: [keys, tool-case, farm-equipment-case, trailer-accessory inventory]
+    state: inventory
+    safety: [owner assignment required, private location data, no undocumented account automation, not a livestock safety tracker]

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <title>SolomonPrime Admin</title>
+  <link rel="stylesheet" href="/admin/admin.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark">S</span><div><strong>SolomonPrime</strong><small>Operator Console</small></div></div>
+      <nav id="nav" aria-label="Admin sections">
+        <button class="nav-item active" data-page="overview">Overview</button>
+        <button class="nav-item" data-page="fleet">Fleet</button>
+        <button class="nav-item" data-page="models">Models</button>
+        <button class="nav-item" data-page="edgeDevices">Edge Devices</button>
+        <button class="nav-item" data-page="rf">RF Monitoring</button>
+        <button class="nav-item" data-page="voice">Voice &amp; Mobile</button>
+        <button class="nav-item" data-page="calendars">Calendars</button>
+        <button class="nav-item" data-page="goals">Goals</button>
+        <button class="nav-item" data-page="jobs">Jobs</button>
+        <button class="nav-item" data-page="experiments">Experiments</button>
+        <button class="nav-item" data-page="development">Development Lab</button>
+        <button class="nav-item" data-page="knowledge">Knowledge</button>
+        <button class="nav-item" data-page="approvals">Approvals</button>
+        <button class="nav-item" data-page="ted">TED</button>
+        <button class="nav-item" data-page="configuration">Configuration</button>
+        <button class="nav-item" data-page="documentation">Documentation</button>
+      </nav>
+      <a id="chat-link" class="chat-link" href="#">← Chat &amp; Workspaces</a>
+      <div class="connection"><span id="connection-dot" class="dot"></span><span id="connection-text">Not connected</span></div>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <div><button id="menu" class="icon-button" aria-label="Toggle menu">☰</button><span class="eyebrow">ADMIN WORKSPACE</span><h1 id="page-title">Overview</h1></div>
+        <div class="top-actions"><span id="updated">Waiting for authentication</span><button id="refresh" class="secondary">Refresh</button><button id="signout" class="secondary">Lock</button></div>
+      </header>
+      <div id="notice" class="notice hidden" role="status"></div>
+      <section id="content" aria-live="polite"></section>
+    </main>
+  </div>
+
+  <dialog id="auth-dialog">
+    <form method="dialog" id="auth-form">
+      <div class="dialog-mark">S</div><h2>Unlock Admin Workspace</h2>
+      <p>Enter the SolomonPrime Admin API key from the controller host. It remains in this browser tab only.</p>
+      <label>API key<input id="api-key" type="password" autocomplete="off" required></label>
+      <div class="dialog-actions"><button value="cancel" class="secondary">Cancel</button><button id="connect" value="default">Connect</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="action-dialog">
+    <form method="dialog" id="action-form">
+      <h2 id="action-title">Confirm action</h2><p id="action-description"></p>
+      <label>Operator identity<input id="actor" value="operator" required></label>
+      <label id="note-label">Review note<textarea id="action-note" rows="3"></textarea></label>
+      <div class="dialog-actions"><button value="cancel" class="secondary">Cancel</button><button id="action-confirm" value="default">Confirm</button></div>
+    </form>
+  </dialog>
+  <script src="/admin/admin.js" defer></script>
+</body>
+</html>

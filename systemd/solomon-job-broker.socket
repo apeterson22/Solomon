@@ -1,0 +1,17 @@
+[Unit]
+Description=SolomonPrime protected bounded-job broker socket
+RequiresMountsFor=/apps/solomonprime-jobs
+After=systemd-tmpfiles-setup.service
+
+[Socket]
+ListenStream=/run/solomonprime/job-broker.sock
+SocketUser=root
+SocketGroup=solomonprime
+SocketMode=0660
+DirectoryMode=0750
+Accept=yes
+RemoveOnStop=yes
+MaxConnections=64
+
+[Install]
+WantedBy=sockets.target

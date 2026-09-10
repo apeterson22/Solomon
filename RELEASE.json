@@ -1,0 +1,7 @@
+{
+  "version": "1.0.0",
+  "release": "home-rc4",
+  "channel": "home-release-candidate",
+  "base": "v1.0.0-home-rc3",
+  "purpose": "finalization: dynamic local Ollama discovery and existing Open WebUI adoption; preserves RC3 audit stability fixes"
+}

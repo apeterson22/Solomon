@@ -1,0 +1,21 @@
+policy: free_use_only
+allowed_licenses: [Apache-2.0, MIT, BSD-2-Clause, BSD-3-Clause, GPL-2.0, GPL-3.0, LGPL-2.1, LGPL-3.0, MPL-2.0, SolomonPrime-Proprietary]
+components:
+  ollama: {license: MIT, use: local_and_free_cloud_gateway}
+  llama.cpp: {license: MIT, use: local_inference}
+  whisper.cpp: {license: MIT, use: local_stt}
+  piper1-gpl: {license: GPL-3.0, use: local_tts, model_license_must_be_checked_separately}
+  bluez: {license: GPL-2.0, use: bluetooth_ble}
+  rtl_433: {license: GPL-2.0, use: sub_ghz_receive}
+  hackrf-tools: {license: GPL-2.0, use: wideband_lab}
+  soapysdr: {license: BSL-1.0, use: sdr_abstraction, manual_review: true}
+  wireshark: {license: GPL-2.0, use: owned_network_analysis}
+  sigrok-cli: {license: GPL-3.0, use: owned_hardware_analysis}
+models:
+  gpt-oss:20b: {license: Apache-2.0, allowed: true, location: local}
+  qwen3:14b: {license: Apache-2.0, allowed: true, location: local}
+  gpt-oss:120b-cloud: {license: Apache-2.0, allowed: true, location: cloud, free_quota_gate: true}
+notes:
+  - Software license and model-weight license are evaluated independently.
+  - Unknown or changed licenses fail closed and require operator review.
+  - Free-to-download does not automatically mean open source or unrestricted use.

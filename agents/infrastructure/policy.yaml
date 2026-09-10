@@ -1,0 +1,6 @@
+enabled: true
+default_risk: read_only
+requires_approval_for:
+  - mutating
+  - destructive
+  - critical
