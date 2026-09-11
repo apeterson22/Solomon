@@ -1,0 +1,8 @@
+title = "SolomonPrime Gitleaks policy"
+
+[extend]
+useDefault = true
+
+# Keep the default Gitleaks rules intact. Do not add broad allowlists here.
+# False positives should be reviewed and narrowly documented rather than
+# suppressing entire directories or file classes.
