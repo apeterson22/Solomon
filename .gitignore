@@ -1,33 +1,165 @@
-# Local secrets and generated state
+# -----------------------------------------------------------------------------
+# SolomonPrime local/private data — NEVER COMMIT
+# -----------------------------------------------------------------------------
+
+# Environment and dotenv secrets
 .env
 .env.*
 !.env.example
+*.env
+*.env.*
+
+# Credentials, tokens, auth/session material
+*.token
+*.tokens
+*.secret
+*.secrets
+credentials*.json
+credential*.json
+token*.json
+auth*.json
+session*.json
+cookies*.json
+.netrc
+.npmrc.local
+.pypirc
+
+# Private keys, certificates containing private material, keystores
 *.key
+*.key.*
 *.pem
 *.p12
+*.pfx
 *.jks
 *.keystore
-local.properties
+*.kdbx
+*.ppk
+id_rsa*
+id_ed25519*
+id_ecdsa*
+id_dsa*
+ssh_host_*_key
+ssh_host_*_key.pub
+
+# SolomonPrime PKI / node identity / locally generated security state
 secrets/
+**/secrets/
+private/
+**/private/
+pki/private/
+**/pki/private/
+certs/private/
+**/certs/private/
+ca-private/
+**/ca-private/
+node-identity/
+**/node-identity/
+*.csr.local
+*.srl
+
+# Local machine/application configuration
+local.properties
 config.local.*
+*.local.json
+*.local.yaml
+*.local.yml
+*.local.toml
+*.local.ini
+
+# Runtime databases and mutable state
 *.db
 *.db-wal
 *.db-shm
-*.sqlite*
-*.token
-credentials*.json
-token*.json
+*.sqlite
+*.sqlite3
+*.sqlite-*
+state/
+**/state/
+runtime-data/
+**/runtime-data/
 
-# Generated packages, caches, logs, and Android outputs
+# Memory/RAG indexes and potentially private user data
+memory-data/
+**/memory-data/
+vector-data/
+**/vector-data/
+chroma/
+**/chroma/
+qdrant_storage/
+**/qdrant_storage/
+*.faiss
+*.index.local
+
+# Models/checkpoints/training artifacts (large and may encode private data)
+models/
+**/models/
+checkpoints/
+**/checkpoints/
+*.ckpt
+*.safetensors
+*.gguf
+*.ggml
+*.pt
+*.pth
+*.onnx
+*.pkl
+*.pickle
+
+# Private telemetry, captures, recordings, exports and diagnostics
+*.log
+logs/
+**/logs/
+*.pcap
+*.pcapng
+captures/
+**/captures/
+recordings/
+**/recordings/
+telemetry/
+**/telemetry/
+exports/private/
+**/exports/private/
+bugreport*
+
+# Historical-secret/salvage scanner output — raw reports may contain secrets
+solomonprime-salvage/
+**/solomonprime-salvage/
+*.gitleaks.private.json
+*.trufflehog.private.jsonl
+*.private.sarif
+secret-scan.private.*
+reports/private/
+**/reports/private/
+
+# Generated packages, caches and build outputs
 dist/
 *.zip
 *.tar.gz
+*.tgz
 __pycache__/
+*.py[cod]
 .pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
 .venv/
+venv/
+node_modules/
 .gradle/
 **/build/
 *.apk
 *.aab
-*.log
-bugreport*
+
+# IDE / OS local metadata
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/settings.json
+.vscode/launch.json
+
+# Keep explicitly sanitized templates/documentation under source control
+!.env.example
+!**/.env.example
+!**/*.example
+!**/*.example.*
